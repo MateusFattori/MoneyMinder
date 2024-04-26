@@ -1,5 +1,6 @@
 package br.com.fiap.moneyminder.repository;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,14 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
 
     // @Query("SELECT m FROM Movimentacao m ORDER BY m.id LIMIT ?2 OFFSET ?1")
     // List<Movimentacao> findAllPageable(int offset, int size);
+
+    @Query("SELECT m FROM Movimentacao m ORDER BY m.data DESC")
+    Page<Movimentacao> findTop5ByOrderByDataDesc(Pageable pageable);
+
+    Page<Movimentacao> findFirstByOrderByValorAsc(Pageable pageable);
+
+    Page<Movimentacao> findFirstByOrderByValorDesc(Pageable pageable);
+
+    Page<Movimentacao> findFirstByOrderByDataDesc(Pageable pageable);
     
 }

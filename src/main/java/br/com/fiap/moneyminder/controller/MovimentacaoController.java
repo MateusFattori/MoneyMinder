@@ -50,6 +50,33 @@ public class MovimentacaoController {
         return repository.findAll(pageable);
     }
 
+    @GetMapping("/top5")
+    public Page<Movimentacao> top5(
+        @PageableDefault(size = 5, sort = "data", direction = Direction.DESC) Pageable pageable
+    ){
+        return repository.findTop5ByOrderByDataDesc(pageable);
+    }
+
+    @GetMapping("/maior")
+    public Page<Movimentacao> maiorMovimentacao(
+        @PageableDefault(size = 1, sort = "valor", direction = Direction.DESC) Pageable pageable
+    ){
+        return repository.findFirstByOrderByValorDesc(pageable);
+    }
+
+    @GetMapping("/menor")
+    public Page<Movimentacao> menorMovimentacao(
+        @PageableDefault(size = 1, sort = "valor", direction = Direction.ASC) Pageable pageable
+    ){
+        return repository.findFirstByOrderByValorAsc(pageable);
+    }
+
+    @GetMapping("/ultima")
+    public Page<Movimentacao> ultimaMovimentacao(
+        @PageableDefault(size = 1, sort = "data", direction = Direction.DESC) Pageable pageable
+    ){
+        return repository.findFirstByOrderByDataDesc(pageable);
+    }
 
     @PostMapping
     public Movimentacao create(@RequestBody @Valid Movimentacao movimentacao){
